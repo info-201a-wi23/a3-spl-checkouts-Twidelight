@@ -26,7 +26,8 @@ by_usage <- checkouts_data %>%
 ggplot(by_usage) +
   geom_line(aes(x = date, y = total_checkouts, color = UsageClass), size = 1.2) +
   scale_color_brewer(palette = "Accent") +
-  labs(title = "Number of Checkouts in Digital and Physical Form", x = "Year", 
+  labs(title = "Total Checkouts in Digital and Physical Form from Seattle Public Library in 2017-2023", 
+       x = "Year", 
        y = "Number of Checkouts") +
   guides(color = guide_legend(title = "Checkout Form")) +
   scale_y_continuous(labels = label_number_si())

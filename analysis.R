@@ -12,11 +12,11 @@ summary_info$num_of_type <- checkouts_data %>%
   pull(total)
 
 # find the most checked out type of material
-summary_info$max_type <- checkouts_data %>% 
+summary_info$max_type_num <- checkouts_data %>% 
   group_by(MaterialType) %>% 
   summarize(total = sum(Checkouts, na.rm = TRUE)) %>% 
   filter(total == max(total, na.rm = TRUE)) %>% 
-  pull(MaterialType)
+  pull(total)
 
 # find the maximum number of check out of a single book in a month
 summary_info$max_checkout <- checkouts_data %>% 
@@ -35,4 +35,4 @@ summary_info$usage_class <- checkouts_data %>%
   group_by(UsageClass) %>% 
   summarize(total = sum(Checkouts, na.rm = TRUE)) %>% 
   filter(total == max(total, na.rm = TRUE)) %>% 
-  pull(UsageClass)
+  pull(total)

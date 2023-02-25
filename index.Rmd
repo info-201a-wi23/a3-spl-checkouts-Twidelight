@@ -2,85 +2,56 @@
 title: "A3: SPL Library Checkouts"
 output: html_document
 ---
+#### by Catherine Liu
 
 ### Introduction
+For this assignment, I am working on a data set provided by the Seattle public library. The data set contains information of items that had been checked out for more than ten times in a month from January 2017 to January 2023. We could look at the publisher, material type and a lot of other characteristics of the items. To look more in detailed, I picked three topics to look closer in the data set. 
 
-An introduction of the data and a description of the trends/books/items you are choosing to analyze (and why!)
+The first topic is about the general form of checked out items. There are only two possibilities: "physical" or "digital". The presence of the pandemic had changed our life styles significantly and I am interested in whether it had an impact on what kind of items people choose to check out. 
+
+My second interest is about the two series of fictions that I enjoyed reading as a teenager. The data was filtered out by author to avoid missing out books with irregular titles in the series. One author is J. K. Rowling, the author of the world-wide popular series _Harry Potter_. The other author is the author of the _Warriors_ series, Erin Hunter. It is not as famous as the _Harry Potter_ series and I am curious about whether the series had became more popular in the past few years.
+
+The third chart will be about the total checkouts in different forms of materials. There are a lot of material types including books, eBooks, video discs, etc. It is interesting to look into what types of items people prefer to check out nowadays. Therefore, I created a plot to see the percentage of each material type's checkout in the past six years.
 
 ### Summary Information
-
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
-
-These will likely be calculated using your DPLYR skills, answering questions such as:
-
-- What is the average number of checkouts for each item?
-- What is the month or year with the most/least checkouts for a book that you're interested in?
-- What is the month or year with the most/least checkouts for ebooks?
-- How has the number of print book checkouts changed over time?
-
-Feel free to calculate and report values that you find relevant.
+``````{r, echo = FALSE, warning = FALSE, code = readLines("analysis.R"), message = FALSE}
+```
+To have a general understanding of what the data set has, we should look at a few summary data extracted from the data set. There are `r summary_info$num_of_type` categories of materials that had been check out. A few categories in the chart are the combination of multiple materials, but the number of categories is still surprisingly high. Among these materials, the highest one had a total of  `r summary_info$max_type_num` checkouts. This is the cumulative number for one material over the past 6 years. We will look into the number for other materials more in detailed in chart 3. The highest number of checkouts of a single item in one month is`r summary_info$max_checkout`. The year with the most total checkouts in 2017-2023 is `r summary_info$max_year`. Lastly, I calculated the total number of checkouts in digital and physical form to see which form was more used. And the answer is physical with the number of `r summary_info$usage_class`. 
 
 ### The Dataset
+This dataset was provided by the Seattle Public library. There are originally 12 parameters of the data: usage type (digital or physical), checkout type, material type, year of checkout, month of checkout, number of checkout in that month, the title, the isbn, the creator, the subject, the publisher, and the publication year. The data was collected by the library since 2005 and this subset I used only contains the data of books with more than 10 checkouts per month from January 2017 to January 2023. Recording checkouts is a necessary step in libraries. Seattle Public Library decided to collect and cleaned these information for people that are interested in the topic. Since the data does not include any personal information of the people that checked the book out, there is not an ethical question for me to consider. The limitation is that the data set only contains books with more than 10 checkouts per month. If someone wants to know more about what books people are interested in, there might be a lot of books that will not be counted with this data set. Also, since an item could have mulitiple subjects, it is hard to look into question about subjects. It is really hard to break the subjects down into separate columns. 
 
-- Who collected/published the data?  
-- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
-- How was the data collected or generated?  
-- Why was the data collected?  
-- What, if any, ethical questions do you need to consider when working with this data?  
-- What are possible limitations or problems with this data?   (at least 200 words)
-
-
-### First Trends Over Time Chart
-
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The first chart that you will create and include will show the trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, warning = FALSE, code = readLines("chart1_example.R")}
+### Chart 1: Total Checkouts in Digital and Physical Form 
+``````{r, echo = FALSE, warning = FALSE, code = readLines("chart1.R"), message = FALSE}
 ```
 
-### Second Trends Over Time Chart
+As shown in the graph, the purple line represents the total number of checkouts in physical form and the green line. I am interested to the comparison of checkouts between the two forms. In my opinion, reading from papers feel completely different with reading from electronic devices. I prefer to read from paperback books, but reading from screens is a lot more easier and more convenient. Therefore the first chart is to see which form is more picked by the customers of the Seattle Public Library. 
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+Physical items were checked out much more often than digital items until the spring of 2020. It was the start of the pandemic and how people live changed significantly since then. More people work remotely and the offline activities declined. Therefore the checkouts in physical form also dropped significantly. From around March to July of 2020, the number of checkouts were so little that we could hardly see it moves away from the x axis. Although the number slowly grows up since the latter half of 2020, it never went back to how it used to be. 
 
-The second chart that you will create and include will show another trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+On the other hand, the number of digital checkouts kept growing in the past six years. Although there were some declines, the overall tendency is to increase. I think this was caused by the development of technology. Nowadays people could access more and more things in digital form, which might caused the increase in the number of digital checkouts in the Seattle Public Library. Since the line for digital checkouts is overall growing through the time span, it hard to say the influence of the pandemic to the digital checkouts. 
 
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+### Chart 2: Total Checkouts of Books from Erin Hunter and J. K. Rowling
+``````{r, echo = FALSE, warning = FALSE, code = readLines("chart2.R"), message = FALSE}
 ```
 
-### Your Choice
+This chart shows the total checkouts of books from J. K. Rowling and Erin Hunter by month in 2017-2023. They represent the two series of books I enjoyed as a teenager. J. K. Rowling wrote the very famous _Harry Potter_ series and Erin Hunter created the fantasy world of the _Warriors_. 
 
-The last chart is up to you. It could be a line plot, scatter plot, histogram, bar plot, stacked bar plot, and more. Here are some requirements to help guide your design:
+The brand of _Harry Potter_ had a lot of related news and works every year. J. K. Rowling also had some controversial news about her opinions in other topics. These factors might influence how people think about _Harry Potter_ and the number of checkouts of works in the series. Therefore I picked J. K. Rowling as one of the two authors I want to look about. 
 
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
+The _Warriors_, on the other hand, is purely my personal interest. It was my favorite series of books as an elementary schools student and a teenager. I did not put as much attention to the new books in the series as I grew older and became more busy. However, I am still interested in the series and want to know if it has became more known than before. So Erin Hunter is my other pick for this chart.
 
-Here's an example of how to run an R script inside an RMarkdown file:
+To create the plot, I filtered the data frame by author and combined the checkouts of all books from the same author together. I did not choose to filter by the title since some of the books in the series do not have the same keyword as the other books. Although there are also relevant books in the series that were written by other people, checkouts of these books are not counted. 
 
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+From the graph we could see that Erin Hunter's books did not have a significant change in the past years. However, when it comes to J. K. Rowling's book, there is an awkward peak at about March or April of 2020. I have no idea about what happened other than the outburst of COVID at that time. After the peak, the checkouts started to slowly decline. It is interesting to see the trend line of J. K. Rowling's books' checkouts and it could be a research topic for people that are interested. 
+
+### Chart 3: Total Checkouts by Material Type
+``````{r, echo = FALSE, warning = FALSE, code = readLines("chart3.R"), message = FALSE}
 ```
 
+For the third graph, I created a pie chart based on the total checkouts by material type. As I mentioned in the summary section, there are a total of `r summary_info$num_of_type` types of materials. It is too much to include if we put them all in one pie chart. After looking at the numbers, I decided to only keep the materials with more than cumulative 100000 checkouts in 2017-2023. That cuts the number down to 7 materials.
+
+Among them, book is still the major type of checkouts. However, digital materials such as eBook and audio book also takes a big part in the pie chart. The fourth most material, video disc, is also a digital form of checkout. Although I included magazine, sound disc and mix (almost like an "other" category) in the pie chart, they only take up about 3% of the graph. Therefore, the trend of main type of checkouts is now digital. 
+
+The top three materials, book, eBook and audio book are all different forms to read published works. It proves that although we have more options to spend our spare time, reading books is still one of the top choices. As more people choose to do things remotely, I am very curious about how this pie chart might change in a few years. Maybe next year, the percentage will be significantly different.
 
